@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Tile Grid</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="grid-container"></div>
+	<div class="button-container">
+		<button onclick="changeColor('red')">End</button>
+		<button onclick="changeColor('green')">Start</button>
+		<button onclick="changeColor('black')">Wall</button>
+	</div>
+	<div class="button-container">
+		<button onclick="createSmallGrid()">Small Grid</button>
+		<button onclick="createLargeGrid()">Large Grid</button>
+        <button onclick="reset()">Reset</button>
+	</div>
+    <div class="button-container">
+		<button onclick="bfs()">BFS</button>
+		<button onclick="dfs()">DFS</button>
+	</div>
+	<div class="button-container">
+		<button onclick="printTiles()">Print</button>
+	</div>
+	<script src="script.js"></script>
+	
+</body>
+</html>

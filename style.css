@@ -1,0 +1,39 @@
+.grid-container {
+    width: 750px;
+    height: 750px;
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-size), 1fr);
+    grid-template-rows: repeat(var(--grid-size), 1fr);
+    gap: 1px;
+  }
+
+.tile {
+    display: inline-block;
+    box-sizing: border-box;
+    width: calc(100% / var(--grid-size) - 2px);
+    height: calc(100% / var(--grid-size) - 2px);
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+  }
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.input-container {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+input[type="number"] {
+	width: 50px;
+	margin-right: 10px;
+}
