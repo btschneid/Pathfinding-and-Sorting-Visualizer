@@ -1,5 +1,9 @@
+:root {
+  --grid-size: 20;
+}
+
 .grid-container {
-    width: 750px;
+    width: 1500px;
     height: 750px;
     border: 1px solid #ccc;
     margin: 10px auto;
@@ -13,8 +17,6 @@
 .tile {
     display: inline-block;
     box-sizing: border-box;
-    width: calc(100% / var(--grid-size) - 2px);
-    height: calc(100% / var(--grid-size) - 2px);
     margin: 0;
     padding: 0;
     border: 1px solid #ccc;
@@ -33,7 +35,3 @@
 	margin-bottom: 20px;
 }
 
-input[type="number"] {
-	width: 50px;
-	margin-right: 10px;
-}
