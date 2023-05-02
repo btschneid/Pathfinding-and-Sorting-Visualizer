@@ -2,10 +2,13 @@
   --grid-size: 20;
 }
 
+body {
+  background-color: rgb(239, 239, 239);
+}
+
 .grid-container {
     width: 1500px;
     height: 750px;
-    border: 1px solid #ccc;
     margin: 10px auto;
     padding: 5px;
     display: grid;
