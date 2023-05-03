@@ -1,5 +1,5 @@
 :root {
-  --grid-size: 20;
+  --grid-size: 37;
 }
 
 body {
@@ -7,7 +7,7 @@ body {
 }
 
 .grid-container {
-    width: 1500px;
+    width: 1850px;
     height: 750px;
     margin: 10px auto;
     padding: 5px;
