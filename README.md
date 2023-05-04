@@ -3,6 +3,7 @@
 This project is a web application for visualizing various pathfinding algorithms such as Breadth First Search, Depth First Search, A Star, Dijkstra, and Greedy Best First Search. It allows users to select a start and end tile, add walls to the tile map, and visualize how the pathfinding algorithms find the shortest path from start to end. Users can also create random mazes using depth first search backtracking and set random tilemaps with varying ratios of walls to open tiles.
 
 ## How to use
+Follow the link: https://btschneid.github.io/Pathfinder/
 
 1. Select a start tile by clicking on a tile and then selecting the green button in the tile button container.
 2. Select an end tile by clicking on a tile and then selecting the red button in the tile button container.
