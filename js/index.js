@@ -225,11 +225,11 @@ let tileSize = updateTileSize();
 // Listen for changes in the width of the container
 window.addEventListener("resize", () => {
   const gridContainer = document.querySelector(".grid-container");
-  const width = gridContainer.offsetWidth;
-  const height = width * 15 / 37; // Set height to be 15/37 of the width
+  let width = gridContainer.offsetWidth;
+  let height = width * 15 / 37; // Set height to be 15/37 of the width
 	
   gridContainer.style.height = `${height}px`; // Set the height of the container using the style property
-  tileSize = width / 37 - 1;
+  tileSize = width / 37 - 2;
   updateTileSize2();
 });
 
@@ -243,7 +243,7 @@ function updateTileSize2() {
 function updateTileSize() {
   const gridContainer = document.querySelector(".grid-container");
   const width = gridContainer.offsetWidth;
-  const tileSize = width / 37 - 1;
+  const tileSize = width / 37 - 2;
   return tileSize;
 }
 
