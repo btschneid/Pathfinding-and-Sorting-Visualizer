@@ -14,6 +14,13 @@ const visitedAnimation = (t, color) => {
   });
 }
 
+const wallColor = 'black';
+const emptyTileColor = 'white';
+const visitedTileColor = '#75a7e6';
+const finalPathTileColor = '#f5ff5e'
+const startTileColor = 'green';
+const finalTileColor = 'red';
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TILES CLASS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,9 +72,9 @@ class Tile {
 
   handleClick = () => {
     if (editMode) {
-      if (selectedColor === 'green') {
+      if (selectedColor === startTileColor) {
         if (previousStartTile) {
-          previousStartTile.element.style.backgroundColor = 'white';
+          previousStartTile.element.style.backgroundColor = emptyTileColor;
         }
   
         this.setTileNotWall();
@@ -75,9 +82,9 @@ class Tile {
         previousStartTile = this;
       }
   
-      if (selectedColor === 'red') {
+      if (selectedColor === finalTileColor) {
         if (previousEndTile) {
-          previousEndTile.element.style.backgroundColor = 'white';
+          previousEndTile.element.style.backgroundColor = emptyTileColor;
         }
           
         this.setTileNotWall();
@@ -88,10 +95,10 @@ class Tile {
       visitedAnimation(this, selectedColor);
     }
 
-    if (selectedColor === 'black') {
+    if (selectedColor === wallColor) {
       if (this.isTileWall()) {
         this.setTileNotWall();
-        this.element.style.backgroundColor = 'white';
+        this.element.style.backgroundColor = emptyTileColor;
       }
 
       if (this.number === endTile) {
@@ -123,7 +130,7 @@ class Tile {
         clickedOnToMove = 0;
       }
 
-      if (isMouseDown && editMode && selectedColor === 'black' && !this.isTileWall()) {
+      if (isMouseDown && editMode && selectedColor === wallColor && !this.isTileWall()) {
         this.setTileWall();
         visitedAnimation(this, selectedColor);
 
@@ -138,13 +145,13 @@ class Tile {
         if (clickedOnToMove == 0) {
           if (!this.isTileWall() && this.number !== startTile && previousEndTile !== this) {
             if (previousEndTile) {
-              previousEndTile.element.style.backgroundColor = 'white';
+              previousEndTile.element.style.backgroundColor = emptyTileColor;
             }
       
             this.setTileNotWall();
             endTile = this.number;
             previousEndTile = this;
-            this.element.style.backgroundColor = 'red';
+            this.element.style.backgroundColor = finalTileColor;
           }
           
         }
@@ -152,13 +159,13 @@ class Tile {
         if (clickedOnToMove == 1) {
           if (!this.isTileWall() && this.number !== endTile && previousStartTile !== this) {
             if (previousStartTile) {
-              previousStartTile.element.style.backgroundColor = 'white';
+              previousStartTile.element.style.backgroundColor = emptyTileColor;
             }
       
             this.setTileNotWall();
             startTile = this.number;
             previousStartTile = this;
-            this.element.style.backgroundColor = 'green';
+            this.element.style.backgroundColor = startTileColor;
           }
           
         }
@@ -277,7 +284,7 @@ async function reset() {
   editMode = true;
   currentAlg = -1;
   pathFindingDone = false;
-  await delay(50);
+  await delay(25);
   visitedTiles = []
   selectedColor = '';
   createTiles();
@@ -293,6 +300,40 @@ window.onload = function() {
   createTiles();
 }
 
+const slider = document.getElementById("mySlider");
+const defaultValue = slider.defaultValue;
+
+function updateRandom() {
+  const value = slider.value;
+  random(value);
+}
+
+async function random(ratio) {
+  reset();
+  await delay(25);
+  for (let i = 0; i < tiles.length; i++) {
+    let randomNumber = Math.random();
+    if (randomNumber < ratio) {
+      tiles[i].setTileWall();
+      visitedAnimation(tiles[i], wallColor);
+    } 
+  }
+  let tiles2 = tiles;
+
+  let startIndex = Math.floor(Math.random() * tiles2.length);
+  tiles2.slice(startIndex, 1);
+  let endIndex = Math.floor(Math.random() * tiles2.length);
+
+  startTile = startIndex;
+  visitedAnimation(tiles[startIndex], startTileColor);
+  tiles[startIndex].setTileNotWall()
+  previousStartTile = tiles[startIndex];
+
+  endTile = endIndex;
+  visitedAnimation(tiles[endIndex], finalTileColor);
+  tiles[endIndex].setTileNotWall()
+  previousEndTile = tiles[endIndex];
+}
 
 
 
@@ -326,7 +367,7 @@ const buildGraph = () => {
 const resetVisitedTiles = () => {
   for (let i = 0; i < visitedTiles.length; i++) {
     if (visitedTiles[i].number !== startTile && visitedTiles[i].number !== endTile) {
-      visitedTiles[i].element.style.backgroundColor = 'white';
+      visitedTiles[i].element.style.backgroundColor = emptyTileColor;
     }
   }
 
@@ -391,9 +432,9 @@ async function bfsTime(delayTime) {
         queue.push([neighbor, distance + 1]);
         if (neighbor !== startTile && neighbor !== endTile) {
           if (delayTime == 0) {
-            tiles[neighbor].element.style.backgroundColor = '#75a7e6';
+            tiles[neighbor].element.style.backgroundColor = visitedTileColor;
           } else {
-            visitedAnimation(tiles[neighbor], '#75a7e6');
+            visitedAnimation(tiles[neighbor], visitedTileColor);
           }
           visitedTiles.push(tiles[neighbor]);
         } 
@@ -412,9 +453,9 @@ async function bfsTime(delayTime) {
     if (node !== endNode) {
 
       if (delayTime == 0) {
-        tiles[node].element.style.backgroundColor = '#f5ff5e';
+        tiles[node].element.style.backgroundColor = finalPathTileColor;
       } else {
-        visitedAnimation(tiles[node], '#f5ff5e');
+        visitedAnimation(tiles[node], finalPathTileColor);
         await delay(delayTime); 
       }
     }
@@ -476,9 +517,9 @@ async function dfsTime(delayTime) {
         array.push([neighbor, distance + 1]);
         if (neighbor !== startTile && neighbor !== endTile) {
           if (delayTime == 0) {
-            tiles[neighbor].element.style.backgroundColor = '#75a7e6';
+            tiles[neighbor].element.style.backgroundColor = visitedTileColor;
           } else {
-            visitedAnimation(tiles[neighbor], '#75a7e6');
+            visitedAnimation(tiles[neighbor], visitedTileColor);
           }
           visitedTiles.push(tiles[neighbor]);
         } 
@@ -496,9 +537,9 @@ async function dfsTime(delayTime) {
   while (node != startTile && !resetOn) {
     if (node !== endNode) {
       if (delayTime == 0) {
-        tiles[node].element.style.backgroundColor = '#f5ff5e';
+        tiles[node].element.style.backgroundColor = finalPathTileColor;
       } else {
-        visitedAnimation(tiles[node], '#f5ff5e');
+        visitedAnimation(tiles[node], finalPathTileColor);
         await delay(delayTime); 
       }
     }
@@ -592,9 +633,9 @@ async function dijTime(delayTime, type) {
         
         if (neighbor !== startTile && neighbor !== endTile) {
           if (delayTime == 0) {
-            tiles[neighbor].element.style.backgroundColor = '#75a7e6';
+            tiles[neighbor].element.style.backgroundColor = visitedTileColor;
           } else {
-            visitedAnimation(tiles[neighbor], '#75a7e6');
+            visitedAnimation(tiles[neighbor], visitedTileColor);
           }
           visitedTiles.push(tiles[neighbor]);
         } 
@@ -614,9 +655,9 @@ async function dijTime(delayTime, type) {
   while (node != startTile && !resetOn) {
     if (node !== endNode) {
       if (delayTime == 0) {
-        tiles[node].element.style.backgroundColor = '#f5ff5e';
+        tiles[node].element.style.backgroundColor = finalPathTileColor;
       } else {
-        visitedAnimation(tiles[node], '#f5ff5e');
+        visitedAnimation(tiles[node], finalPathTileColor);
         await delay(delayTime); 
       }
     }
@@ -734,9 +775,9 @@ async function astarTime(delayTime, type) {
         
         if (neighbor !== startTile && neighbor !== endTile) {
           if (delayTime == 0) {
-            tiles[neighbor].element.style.backgroundColor = '#75a7e6';
+            tiles[neighbor].element.style.backgroundColor = visitedTileColor;
           } else {
-            visitedAnimation(tiles[neighbor], '#75a7e6');
+            visitedAnimation(tiles[neighbor], visitedTileColor);
           }
           visitedTiles.push(tiles[neighbor]);
         } 
@@ -756,9 +797,9 @@ async function astarTime(delayTime, type) {
   while (node != startTile && !resetOn) {
     if (node !== endNode) {
       if (delayTime == 0) {
-        tiles[node].element.style.backgroundColor = '#f5ff5e';
+        tiles[node].element.style.backgroundColor = finalPathTileColor;
       } else {
-        visitedAnimation(tiles[node], '#f5ff5e');
+        visitedAnimation(tiles[node], finalPathTileColor);
         await delay(delayTime); 
       }
     }
@@ -855,9 +896,9 @@ async function greedyTime(delayTime, type) {
         
         if (neighbor !== startTile && neighbor !== endTile) {
           if (delayTime == 0) {
-            tiles[neighbor].element.style.backgroundColor = '#75a7e6';
+            tiles[neighbor].element.style.backgroundColor = visitedTileColor;
           } else {
-            visitedAnimation(tiles[neighbor], '#75a7e6');
+            visitedAnimation(tiles[neighbor], visitedTileColor);
           }
           visitedTiles.push(tiles[neighbor]);
         } 
@@ -877,9 +918,9 @@ async function greedyTime(delayTime, type) {
   while (node != startTile && !resetOn) {
     if (node !== endNode) {
       if (delayTime == 0) {
-        tiles[node].element.style.backgroundColor = '#f5ff5e';
+        tiles[node].element.style.backgroundColor = finalPathTileColor;
       } else {
-        visitedAnimation(tiles[node], '#f5ff5e');
+        visitedAnimation(tiles[node], finalPathTileColor);
         await delay(delayTime); 
       }
     }
@@ -905,17 +946,19 @@ async function greedyTime(delayTime, type) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let openTiles = [];
 
-function maze() {
+async function maze() {
+  reset();
+  await delay(25);
   pathFindingDone = false;
   for (let i = 0; i < tiles.length; i++) {
     let r = getRow(tiles[i].number);
     let c = getCol(tiles[i].number);
     if (r % 2 == 0 && c % 2 == 0) {
       tiles[i].setTileWall();
-      visitedAnimation(tiles[i], 'black');
+      visitedAnimation(tiles[i], wallColor);
     }
     else if (r % 2 != 1 || c % 2 != 1) {
-      visitedAnimation(tiles[i], 'black');
+      visitedAnimation(tiles[i], wallColor);
       if (r == 0 || r == gridSizeY - 1 || c == 0 || c == gridSizeX - 1) {
         tiles[i].setTileWall();
       }
@@ -1040,18 +1083,18 @@ async function dfsMaze() {
       visited.add(neighbor);
       stack.push(neighbor);
       if (neighbor !== s) {
-        visitedAnimation(tiles[neighbor], 'white');
+        visitedAnimation(tiles[neighbor], emptyTileColor);
         visitedTiles.push(tiles[neighbor]);
       } 
 
-      getRidOfWall(neighbor, node, 'white');
+      getRidOfWall(neighbor, node, emptyTileColor);
 
     }
     
   }
 
   for (let i = 0; i < tiles.length; i++) {
-    if (tiles[i].element.style.backgroundColor == 'black') {
+    if (tiles[i].element.style.backgroundColor == wallColor) {
       tiles[i].setTileWall();
     }
   }

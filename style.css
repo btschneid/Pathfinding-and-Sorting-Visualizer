@@ -3,38 +3,231 @@
 }
 
 body {
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
   background-color: rgb(239, 239, 239);
 }
 
 .grid-container {
-    width: 1850px;
-    height: 750px;
-    margin: 10px auto;
-    padding: 5px;
-    display: grid;
-    grid-template-columns: repeat(var(--grid-size), 1fr);
-    grid-template-rows: repeat(var(--grid-size), 1fr);
-    gap: 1px;
-  }
+  width: 1850px;
+  height: 750px;
+  margin: 3px auto;
+  padding: 3px;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  gap: 1px;
+}
 
 .tile {
-    display: inline-block;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #ccc;
-    background-color: #fff;
-  }
-
-.button-container {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  background-color: #fff;
 }
+
+.algorithm-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.algorithm-container > .button-container {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.alg-buttons {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #488fec;
+  border-radius: 10px;
+  border-style: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: normal;
+  outline: none;
+  overflow: hidden;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: normal;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.alg-buttons:hover {
+  background-color: #1366d6;
+  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.alg-buttons:hover:after {
+  opacity: .5;
+}
+
+.alg-buttons:active {
+  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.alg-buttons:active:after {
+  opacity: 1;
+}
+
+.main-button-container {
+  padding: 10px;
+  display: grid;
+  grid-gap: 20px;
+}
+
+
+.tile-button-icons,
+.tile-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.tilebut1,
+.tilebut2,
+.tilebut3 {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #488fec;
+  border-radius: 10px;
+  border-style: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: normal;
+  outline: none;
+  overflow: hidden;
+  padding: 20px 25px;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: normal;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+
+.tilebut1 {
+  background-color: green;
+}
+
+.tilebut2 {
+  background-color: red;
+}
+
+.tilebut3 {
+  background-color: black;
+}
+
+.start-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-button .alg-buttons {
+  font-size: 40px;
+  padding: 40px 40px;
+}
+
+.reset-button,
+.maze-button,
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 10px;
+}
+
+.maze-random-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 10px;
+}
+
 
 .input-container {
-	display: flex;
-	align-items: center;
-	margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.text-slider {
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-container {
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
 
