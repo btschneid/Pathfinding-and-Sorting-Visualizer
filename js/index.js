@@ -230,8 +230,15 @@ window.addEventListener("resize", () => {
 	
   gridContainer.style.height = `${height}px`; // Set the height of the container using the style property
   tileSize = width / 37 - 1;
-  reset();
+  updateTileSize2();
 });
+
+function updateTileSize2() {
+  for (let i = 0; i < tileElementArray.length; i++) {
+    tileElementArray[i].style.width = tileSize + 'px';
+    tileElementArray[i].style.height = tileSize + 'px';
+  }
+}
 
 function updateTileSize() {
   const gridContainer = document.querySelector(".grid-container");
@@ -240,9 +247,11 @@ function updateTileSize() {
   return tileSize;
 }
 
+let tileElementArray = [];
 
 // Creates the tile map
 const createTiles = () => {
+  tileElementArray = [];
   tiles = [];
   const gridContainer = document.querySelector(".grid-container");
   gridContainer.innerHTML = "";
@@ -253,6 +262,7 @@ const createTiles = () => {
     col = i % gridSizeX;
     const tile = new Tile(i, row, col);
     const tileElement = tile.createElement(tileSize);
+    tileElementArray.push(tileElement);
     tiles.push(tile);
     gridContainer.appendChild(tileElement);
   }
