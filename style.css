@@ -153,6 +153,50 @@ body {
   letter-spacing: normal;
 }
 
+.tilebut1:hover {
+  background-color: rgb(1, 111, 1);
+  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.tilebut2:hover {
+  background-color: rgb(182, 1, 1);
+  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.tilebut3:hover {
+  background-color: rgb(28, 28, 28);
+  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.tilebut1:hover:after,
+.tilebut2:hover:after,
+.tilebut3:hover:after {
+  opacity: .5;
+}
+
+.tilebut1:active,
+.tilebut2:active,
+.tilebut3:active {
+  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.tilebut1:active:after,
+.tilebut2:active:after,
+.tilebut3:active:after {
+  opacity: 1;
+}
+
 .tilebut1 {
   background-color: green;
 }
