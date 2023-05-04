@@ -6,51 +6,54 @@
 </head>
 <body>
 	<div class="grid-container"></div>
-	<div class="container">
-		<div class="algorithm-container">
-			<div class="button-container">
-				<button class="alg-buttons" onclick="bfs()">BFS</button>
-				<button class="alg-buttons" onclick="dfs()">DFS</button>
-			</div>
-			<div class="button-container">
-				<button class="alg-buttons" onclick="dijkstra('euclidean')">Dijkstra Euclidean</button>
-				<button class="alg-buttons" onclick="dijkstra('manhattan')">Dijkstra Manhattan</button>
-			</div>
-			<div class="button-container">
-				<button class="alg-buttons" onclick="aStar('euclidean')">A* Euclidean</button>
-				<button class="alg-buttons" onclick="aStar('manhattan')">A* Manhattan</button>
-			</div>
-			<div class="button-container">
-				<button class="alg-buttons" onclick="greedyBFS('euclidean')">Greedy BFS Euclidean</button>
-				<button class="alg-buttons" onclick="greedyBFS('manhattan')">Greedy BFS Manhattan</button>
-			</div>
-		</div>
-		<div class="main-button-container">
-			<div class="tile-button-container">
-				<div class="tile-button-icons">
-					<button class="tilebut1" onclick="changeColor('green')">Start Tile</button>
-					<button class="tilebut2" onclick="changeColor('red')">End Tile</button>
-					<button class="tilebut3" onclick="changeColor('black')">Wall Tile</button>
+	<div class="bottom-container">
+		<div class="container">
+			<div class="algorithm-container">
+				<div class="button-container">
+					<button class="alg-buttons" onclick="bfs()">BFS</button>
+					<button class="alg-buttons" onclick="dfs()">DFS</button>
+				</div>
+				<div class="button-container">
+					<button class="alg-buttons" onclick="dijkstra('euclidean')">Dijkstra Euclidean</button>
+					<button class="alg-buttons" onclick="dijkstra('manhattan')">Dijkstra Manhattan</button>
+				</div>
+				<div class="button-container">
+					<button class="alg-buttons" onclick="aStar('euclidean')">A* Euclidean</button>
+					<button class="alg-buttons" onclick="aStar('manhattan')">A* Manhattan</button>
+				</div>
+				<div class="button-container">
+					<button class="alg-buttons" onclick="greedyBFS('euclidean')">Greedy BFS Euclidean</button>
+					<button class="alg-buttons" onclick="greedyBFS('manhattan')">Greedy BFS Manhattan</button>
 				</div>
 			</div>
-		</div>
-		<div class="maze-random-container">
-			<div class="maze-button">
-				<button class="alg-buttons" onclick="maze()">Create Maze</button>
-			</div>
-			<div class="input-container">
-				<div class="text-slider">
-					<label for="mySlider">Random Tilemap</label>
-				</div>
-				<div class="slider-container">
-					<input class="range-style" type="range" min="0.1" max="0.25" step="0.01" value="0.175" id="mySlider" onchange="updateRandom()">
+			<div class="main-button-container">
+				<div class="tile-button-container">
+					<div class="tile-button-icons">
+						<button class="tilebut1" onclick="changeColor('green')">Start Tile</button>
+						<button class="tilebut2" onclick="changeColor('red')">End Tile</button>
+						<button class="tilebut3" onclick="changeColor('black')">Wall Tile</button>
+					</div>
 				</div>
 			</div>
-			<div class="reset-button">
-				<button class="alg-buttons" onclick="reset()">Reset</button>
+			<div class="maze-random-container">
+				<div class="maze-button">
+					<button class="alg-buttons" onclick="maze()">Create Maze</button>
+				</div>
+				<div class="input-container">
+					<div class="text-slider">
+						<label for="mySlider" onclick="updateRandom()">Random Tilemap</label>
+					</div>
+					<div class="slider-container">
+						<input class="range-style" type="range" min="0.1" max="0.25" step="0.01" value="0.175" id="mySlider" onchange="updateRandom()">
+					</div>
+				</div>
+				<div class="reset-button">
+					<button class="alg-buttons" onclick="reset()">Reset</button>
+				</div>
 			</div>
 		</div>
 	</div>
+	
 	
 
 	<script src="js/index.js"></script>

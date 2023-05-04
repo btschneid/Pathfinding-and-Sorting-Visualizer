@@ -5,6 +5,9 @@
 body {
   font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
   background-color: rgb(239, 239, 239);
+  min-width: 100%;
+  min-height: 100%;
+  overflow: hidden;
 }
 
 .grid-container {
@@ -228,12 +231,42 @@ body {
   align-items: center;
 }
 
+.text-slider label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: rgb(239, 239, 239);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.text-slider label:hover {
+  background-color: #dddddd;
+}
+
+.text-slider label:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #999;
+}
+
+.bottom-container {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   gap: 10px;
+  margin: 0 auto;
 }
 
 .maze-random-container {
