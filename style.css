@@ -11,10 +11,12 @@ body {
 }
 
 .grid-container {
-  width: 1850px;
-  height: 750px;
-  margin: 3px auto;
-  padding: 3px;
+  align-items: center;
+  justify-content: center;
+  width: 98%; /* Change this to be a ratio of width * 15/37 */
+  margin: 8px 10px;
+  padding: 10px;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(var(--grid-size), 1fr);
   grid-template-rows: repeat(var(--grid-size), 1fr);

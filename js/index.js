@@ -220,13 +220,32 @@ let tileNumber = gridSizeX * gridSizeY;
 let tiles = [];
 let editMode = true;
 let resetOn = false;
+let tileSize = updateTileSize();
+
+// Listen for changes in the width of the container
+window.addEventListener("resize", () => {
+  const gridContainer = document.querySelector(".grid-container");
+  const width = gridContainer.offsetWidth;
+  const height = width * 15 / 37; // Set height to be 15/37 of the width
+	
+  gridContainer.style.height = `${height}px`; // Set the height of the container using the style property
+  tileSize = width / 37 - 1;
+  reset();
+});
+
+function updateTileSize() {
+  const gridContainer = document.querySelector(".grid-container");
+  const width = gridContainer.offsetWidth;
+  const tileSize = width / 37 - 1;
+  return tileSize;
+}
+
 
 // Creates the tile map
 const createTiles = () => {
   tiles = [];
   const gridContainer = document.querySelector(".grid-container");
   gridContainer.innerHTML = "";
-  const tileSize = 49;
 
   // Appends the tiles to the grid Container
   for (let i = 0; i < tileNumber; i++) {
@@ -284,7 +303,7 @@ async function reset() {
   editMode = true;
   currentAlg = -1;
   pathFindingDone = false;
-  await delay(25);
+  //await delay(25);
   visitedTiles = []
   selectedColor = '';
   createTiles();
