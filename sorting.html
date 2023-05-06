@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sorting Algorthims</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body class="sorting">
+	<div class="sorting-container"></div>
+
+	<div class="bottom-container-sorting">
+		<div class="sorting-buttons-container">
+			<div class="sort-alg-container">
+				<button class="alg-buttons" onclick="linearSort()">Linear</button>
+				<button class="alg-buttons" onclick="bubbleSort()">Bubble</button>
+			</div>
+			<div class="sort-alg-container">
+				<button class="alg-buttons" onclick="selectionSort()">Selection</button>
+				<button class="alg-buttons" onclick="insertionSort()">Insertion</button>
+			</div>
+			<div class="sort-alg-container">
+				<button class="alg-buttons" onclick="mergeSort()">Merge</button>
+				<button class="alg-buttons" onclick="quickSort()">Quick</button>
+			</div>
+			<div class="sort-alg-container">
+				<button class="alg-buttons" onclick="heapSort()">Heap</button>
+				<button class="alg-buttons" onclick="radixSort()">Radix</button>
+			</div>
+			<div class="sort-alg-container">
+				<button class="alg-buttons" onclick="bucketSort()">Bucket</button>
+				<button class="alg-buttons" onclick="bogoSort()">Bogo</button>
+			</div>
+		</div>
+		<div class="sorting-settings-container">
+			<button class="sorting" onclick="randomize()">Randomize</button>
+			<input class="range-style" type="range" min="10" max="125" step="5" value="70" id="mySlider" oninput="updateRandom()">
+			<input type="checkbox" id="audioToggle">
+			<input class="range-style" type="range" min="1" max="100" step="1" value="50" id="mySlider2" oninput="updateSpeed()">
+		</div>
+		<div class="html-nav-container">
+			<button class="alg-buttons">
+				<a href="index.html" style="color: inherit; text-decoration: none;">Pathfinding Visualizer</a>
+			</button>
+		</div>
+		
+	</div>
+	
+	
+
+	<script src="js/sorting.js"></script>
+	
+</body>
+</html>

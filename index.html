@@ -4,7 +4,7 @@
 	<title>Tile Grid</title>
 	<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="path">
 	<div class="grid-container"></div>
 	<script>
 		const gridContainer = document.querySelector('.grid-container');
@@ -44,8 +44,13 @@
 				</div>
 			</div>
 			<div class="maze-random-container">
-				<div class="maze-button">
-					<button class="alg-buttons" onclick="maze()">Create Maze</button>
+				<div class="maze-reset">
+					<div class="maze-button">
+						<button class="alg-buttons" onclick="maze()">Create Maze</button>
+					</div>
+					<div class="reset-button">
+						<button class="alg-buttons" onclick="reset()">Reset</button>
+					</div>
 				</div>
 				<div class="input-container">
 					<div class="text-slider">
@@ -55,8 +60,10 @@
 						<input class="range-style" type="range" min="0.1" max="0.25" step="0.01" value="0.175" id="mySlider" onchange="updateRandom()">
 					</div>
 				</div>
-				<div class="reset-button">
-					<button class="alg-buttons" onclick="reset()">Reset</button>
+				<div class="sorting-button">
+					<button class="alg-buttons">
+						<a href="sorting.html" style="color: inherit; text-decoration: none;">Sorting Algorithm Visualizer</a>
+				</button>
 				</div>
 			</div>
 		</div>
