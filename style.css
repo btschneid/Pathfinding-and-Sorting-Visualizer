@@ -256,7 +256,6 @@ body.path {
 }
 
 .bottom-container {
-  position: fixed;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -332,7 +331,7 @@ body.sorting {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 80vh;
+  height: calc(80vh - 5px);
 }
 
 .bar {
@@ -346,6 +345,7 @@ body.sorting {
   grid-template-columns: 27% 27% 21% 25%;
   grid-template-rows: auto;
   gap: 10px;
+  height: calc(20vh - 20px);
 }
 
 .sorting-settings-container,
