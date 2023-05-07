@@ -23,20 +23,30 @@
 			</div>
 			<div class="sort-alg-container">
 				<button class="alg-buttons" onclick="heapSort()">Heap</button>
-				<button class="alg-buttons" onclick="radixSort()">Radix</button>
-			</div>
-			<div class="sort-alg-container">
-				<button class="alg-buttons" onclick="bucketSort()">Bucket</button>
 				<button class="alg-buttons" onclick="bogoSort()">Bogo</button>
 			</div>
 		</div>
-		<div class="sorting-settings-container">
-			<button class="sorting" onclick="randomize()">Randomize</button>
-			<input class="range-style" type="range" min="10" max="125" step="5" value="70" id="mySlider" oninput="updateRandom()">
-			<input type="checkbox" id="audioToggle">
-			<input class="range-style" type="range" min="1" max="100" step="1" value="50" id="mySlider2" oninput="updateSpeed()">
+		<div class="text-container">
+			<p id="comparison-count">Comparisons: 0</p>
+			<p id="swap-count">Swaps: 0</p>
+			<p id="time-complexity">Time complexity:</p>
 		</div>
+		<div class="sorting-settings-container">
+			<button class="alg-buttons" onclick="randomize()">Randomize</button>
+			<div class="sliderstuff">
+				<label for="mySlider">Number of Bars</label>
+				<input class="range-style" type="range" min="10" max="125" step="3" value="70" id="mySlider" oninput="updateRandom()">
+			</div>
+			<div class="sliderstuff">
+				<label for="mySlider2">Speed</label>
+				<input class="range-style" type="range" min="0.001" max="100" step="0.001" value="50" id="mySlider2" oninput="updateSpeed()">
+			</div>
+			</div>
 		<div class="html-nav-container">
+			<div class="checkboxstuff">
+				<label for="audioToggle">Mute</label>
+				<input class="audio" type="checkbox" id="audioToggle">
+			</div>
 			<button class="alg-buttons">
 				<a href="index.html" style="color: inherit; text-decoration: none;">Pathfinding Visualizer</a>
 			</button>

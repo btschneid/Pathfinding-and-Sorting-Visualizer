@@ -8,6 +8,7 @@ const delay = (time) => {
 /////////////////////////////////////////////////////////////////////////////////////////////
 let audioCtx = null;
 let audioOn = true;
+let currentAlgOn = false;
 
 function playNote(freq) {
   if (audioCtx == null) {
@@ -44,8 +45,11 @@ const container = document.querySelector('.sorting-container');
 const containerHeight = container.clientHeight ;
 const slider = document.getElementById("mySlider");
 const defaultValue = slider.defaultValue;
-const BARCOLOR = "488fec";
+const BARCOLOR = "#488fec";
 const DONEBARCOLOR = "#3fcf1b";
+const CURRENTBARCOLOR = "red";
+
+let notDone = true;
 
 let numOfBars = defaultValue;
 
@@ -67,7 +71,42 @@ function updateSpeed() {
 let values = [];
 let barHeightValues = [];
 
+let numOfComparisons = 0;
+const outputP = document.getElementById("comparison-count");
+outputP.textContent = "Comparisons: ";
+
+function updateComparisonNum() {
+	numOfComparisons++;
+	outputP.textContent = "Comparisons: " + numOfComparisons;
+}
+
+let numSwaps = 0;
+const outputSwap = document.getElementById("swap-count");
+outputSwap.textContent = "Swaps: ";
+
+function updateSwapNum() {
+	numSwaps++;
+	outputSwap.textContent = "Swaps: " + numSwaps;
+}
+
+const timeComplex = document.getElementById("time-complexity");
+timeComplex.textContent = "Time Complexity: ";
+
+function updateTimeComplexity(input) {
+	// Change the bars' colors back to BARCOLOR
+  setTimeout(() => {
+    timeComplex.textContent = "Time Complexity: " + input;
+  }, 80);
+}
+
 function randomize() {
+	notDone = true;
+	numOfComparisons = 0;
+	numSwaps = 0;
+	timeComplex.textContent = "Time Complexity: ";
+	outputSwap.textContent = "Swaps: ";
+	outputP.textContent = "Comparisons: ";
+	currentAlgOn = false;
 	let barsArray = [];
 	barHeightValues = [];
   container.innerHTML = '';
@@ -114,7 +153,11 @@ window.onload = function() {
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 async function colorFromRange(start, end) {
+	notDone = false;
 	for (let n = start; n < end; n++) {
+		if (!currentAlgOn) {
+			return;
+		}
 		container.children[n].style.backgroundColor = DONEBARCOLOR;
 		if (audioOn) {
 			playNote(200 + values[n] * 10);
@@ -124,16 +167,30 @@ async function colorFromRange(start, end) {
 }
 
 const swapBars = (indexOne, indexTwo) => {
-	const temp = barHeightValues[indexOne];
-	barHeightValues[indexOne] = barHeightValues[indexTwo];
-	barHeightValues[indexTwo] = temp;
+	updateSwapNum();
+  // Highlight the bars in CURRENTBARCOLOR
+  const bar1 = container.children[indexOne];
+  const bar2 = container.children[indexTwo];
+  bar1.style.backgroundColor = CURRENTBARCOLOR;
+  bar2.style.backgroundColor = CURRENTBARCOLOR;
 
-	// Update the corresponding bars' heights
-	const bar1 = container.children[indexOne];
-	const bar2 = container.children[indexTwo];
-	const tempHeight = bar1.style.height;
-	bar1.style.height = bar2.style.height;
-	bar2.style.height = tempHeight;
+  // Swap the values in the array
+  const temp = barHeightValues[indexOne];
+  barHeightValues[indexOne] = barHeightValues[indexTwo];
+  barHeightValues[indexTwo] = temp;
+
+  // Update the corresponding bars' heights
+  const tempHeight = bar1.style.height;
+  bar1.style.height = bar2.style.height;
+  bar2.style.height = tempHeight;
+
+  // Change the bars' colors back to BARCOLOR
+  setTimeout(() => {
+		if (notDone) {
+			bar1.style.backgroundColor = BARCOLOR;
+    	bar2.style.backgroundColor = BARCOLOR;
+		}
+  }, speed * 100);
 }
 
 const playAudio = (indexOne, indexTwo) => {
@@ -143,12 +200,27 @@ const playAudio = (indexOne, indexTwo) => {
 	}
 }
 
+async function checkToStart() {
+	if (currentAlgOn) {
+		currentAlgOn = false;
+		await delay(75);
+		randomize();
+	}
+	currentAlgOn = true;
+}
+
 
 
 // LINEAR SORT
 async function linearSort() {
+	updateTimeComplexity('O(n)');
+	await checkToStart();
   for (let i = 0; i < barHeightValues.length; i++) {
     for (let j = i + 1; j < barHeightValues.length; j++) {
+			if (!currentAlgOn) {
+				return;
+			}
+			updateComparisonNum();
       if (barHeightValues[j] < barHeightValues[i]) {
         
 				// Swap
@@ -166,6 +238,7 @@ async function linearSort() {
 	await delay(200);
 
 	colorFromRange(0, barHeightValues.length);
+	currentAlgOn = true;
 }
 
 
@@ -174,10 +247,15 @@ async function linearSort() {
 
 // BUBBLE SORT
 async function bubbleSort() {
+	updateTimeComplexity('O(n' + '\u00B2' + ')');
+	await checkToStart();
   for (let i = 0; i < barHeightValues.length; i++) {
     for (let j = 0; j < barHeightValues.length - i; j++) {
+			if (!currentAlgOn) {
+				return;
+			}
+			updateComparisonNum();
       if (barHeightValues[j] > barHeightValues[j + 1]) {
-				
 				// Swap
 				swapBars(j, j + 1);
 
@@ -193,6 +271,7 @@ async function bubbleSort() {
 	await delay(200);
 
 	colorFromRange(0, barHeightValues.length);
+	currentAlgOn = true;
 }
 
 
@@ -204,13 +283,19 @@ async function bubbleSort() {
 
 // SELECTION SORT
 async function selectionSort() {
+	updateTimeComplexity('O(n' + '\u00B2' + ')');
+	await checkToStart();
   for (let i = 0; i < barHeightValues.length; i++) {
 		let currentMin = i;
     for (let j = i + 1; j < barHeightValues.length; j++) {
+			if (!currentAlgOn) {
+				return;
+			}
+			updateComparisonNum();
 			if (barHeightValues[j] < barHeightValues[currentMin]) {
 				currentMin = j;
 				// Add a delay to visualize the swap
-				await delay(speed * 5);
+				await delay(speed * 8);
 			}
 		}
 
@@ -225,6 +310,7 @@ async function selectionSort() {
 	await delay(200);
 
 	colorFromRange(0, barHeightValues.length);
+	currentAlgOn = true;
 }
 
 
@@ -237,9 +323,16 @@ async function selectionSort() {
 
 // INSERTION SORT
 async function insertionSort() {
+	updateTimeComplexity('O(n' + '\u00B2' + ')');
+	await checkToStart();
+
   for (let i = 1; i < barHeightValues.length; i++) {
     let j = i;
 		while (j > 0 && barHeightValues[j - 1] > barHeightValues[j]) {
+			if (!currentAlgOn) {
+				return;
+			}
+			updateComparisonNum();
 			swapBars(j, j - 1);
 
 			playAudio(j - 1, j);
@@ -253,6 +346,7 @@ async function insertionSort() {
 	await delay(200);
 
 	colorFromRange(0, barHeightValues.length);
+	currentAlgOn = true;
 }
 
 
@@ -267,14 +361,28 @@ async function insertionSort() {
 
 // MERGE SORT
 async function mergeSort() {
+	updateTimeComplexity('O(n log n)');
+	await checkToStart();
   await mergeSortHelper1(barHeightValues);
+
+	if (!currentAlgOn) {
+		return;
+	}
 
 	await delay(200);
 
+	if (!currentAlgOn) {
+		return;
+	}
+
 	colorFromRange(0, barHeightValues.length);
+	currentAlgOn = true;
 }
 
 async function mergeSortHelper1(a) {
+	if (!currentAlgOn) {
+		return;
+	}
 	if (a.length == 1) {
 		return a;
 	}
@@ -292,9 +400,17 @@ async function mergeSortHelper1(a) {
 }
 
 async function mergeSortHelper2(a, b) {
+	if (!currentAlgOn) {
+		return;
+	}
+
   let c = [];
 
   while (a.length > 0 && b.length > 0) {
+		if (!currentAlgOn) {
+			return;
+		}
+
     if (a[0] > b[0]) {
       if (!c.includes(b[0])) {
         c.push(b[0]);
@@ -309,6 +425,10 @@ async function mergeSortHelper2(a, b) {
   }
 
   while (a.length > 0) {
+		if (!currentAlgOn) {
+			return;
+		}
+
     if (!c.includes(a[0])) {
       c.push(a[0]);
     }
@@ -316,6 +436,10 @@ async function mergeSortHelper2(a, b) {
   }
 
   while (b.length > 0) {
+		if (!currentAlgOn) {
+			return;
+		}
+
     if (!c.includes(b[0])) {
       c.push(b[0]);
     }
@@ -325,6 +449,10 @@ async function mergeSortHelper2(a, b) {
 	// Swap elements and update bars' heights
 	if (barHeightValues.length > 0) {
 		for (let i = 0; i < c.length; i++) {
+			if (!currentAlgOn) {
+				return;
+			}
+			updateComparisonNum();
 			if (barHeightValues[i] !== c[i]) {
 				let j = barHeightValues.indexOf(c[i]);
 				swapBars(i, j);
@@ -348,11 +476,20 @@ async function mergeSortHelper2(a, b) {
 
 // QUICK SORT
 async function quickSort() {
+	updateTimeComplexity('O(n log n) average case, O(n^2) worst case');
+	await checkToStart();
   await quickSortHelper(barHeightValues, 0, barHeightValues.length - 1);
+	if (!currentAlgOn) {
+		return;
+	}
   colorFromRange(0, barHeightValues.length);
+	currentAlgOn = true;
 }
 
 async function quickSortHelper(a, low, high) {
+	if (!currentAlgOn) {
+		return;
+	}
   if (low < high) {
     const pivotIndex = await quickSortHelper2(a, low, high);
     await quickSortHelper(a, low, pivotIndex - 1);
@@ -361,10 +498,17 @@ async function quickSortHelper(a, low, high) {
 }
 
 async function quickSortHelper2(a, low, high) {
+	if (!currentAlgOn) {
+		return;
+	}
   const pivot = a[low];
   let leftWall = low;
 
   for (let i = low + 1; i <= high; i++) {
+		if (!currentAlgOn) {
+			return;
+		}
+		updateComparisonNum();
     if (a[i] < pivot) {
       leftWall++;
       swapBars(i, leftWall);
@@ -373,9 +517,14 @@ async function quickSortHelper2(a, low, high) {
     }
   }
 
+
   swapBars(low, leftWall);
   playAudio(leftWall, low);
   await delay(speed * 5);
+
+	if (!currentAlgOn) {
+		return;
+	}
 
   return leftWall;
 }
@@ -387,7 +536,73 @@ async function quickSortHelper2(a, low, high) {
 
 // HEAP SORT
 async function heapSort() {
-  
+	updateTimeComplexity('O(n log n)');
+	await checkToStart();
+
+	await heapSortMain(barHeightValues);
+	if (!currentAlgOn) {
+		return;
+	}
+
+	colorFromRange(0, barHeightValues.length);
+	currentAlgOn = true;
+}
+
+async function heapSortMain(a) {
+	await buildMaxHeap(a);
+	let n = a.length;
+	for (let i = n - 1; i > 0; i--) {
+		if (!currentAlgOn) {
+			return;
+		}
+		updateComparisonNum();
+		swapBars(0, i);
+		playAudio(i, 0);
+		await delay(speed * 5);
+		n--;
+		await heapify(a, 0, n);
+	}
+
+	return a;
+}
+
+async function buildMaxHeap(a) {
+	let n = a.length;
+
+	for (let i = Math.floor(n / 2); i >= 0; i--) {
+		if (!currentAlgOn) {
+			return;
+		}
+		await heapify(a, i, n);
+	}
+}
+
+async function heapify(a, i, n) {
+	if (!currentAlgOn) {
+		return;
+	}
+  let left = 2 * i + 1;
+  let right = 2 * i + 2;
+  let max = i;
+
+  if (left < n && a[left] > a[max]) {
+    max = left;
+  }
+
+  if (right < n && a[right] > a[max]) {
+    max = right;
+  }
+
+  if (max !== i) {
+		if (!currentAlgOn) {
+			return;
+		}
+		updateComparisonNum();
+		swapBars(max, i);
+		playAudio(i, max);
+		await delay(speed * 5);
+    await heapify(a, max, n);
+  }
 }
 
 
@@ -399,27 +614,6 @@ async function heapSort() {
 
 
 
-
-// RADIX SORT
-async function radixSort() {
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-// BUCKET SORT
-async function bucketSort() {
-  
-}
 
 
 
@@ -433,9 +627,14 @@ async function bucketSort() {
 
 // BOGO SORT
 async function bogoSort() {
-
+	updateTimeComplexity('O((n+1)!) on average, O(infinity) worst case');
+	await checkToStart();
 	while (!checkIfDone()) {
 		for (let i = 0; i < barHeightValues.length; i++) {
+			if (!currentAlgOn) {
+				return;
+			}
+			updateComparisonNum();
       const j = Math.floor(Math.random() * barHeightValues.length);
 			playAudio(j, i);
 			swapBars(i, j);
@@ -446,6 +645,7 @@ async function bogoSort() {
 	}
 
   colorFromRange(0, barHeightValues.length);
+	currentAlgOn = true;
 }
 
 const checkIfDone = () => {
