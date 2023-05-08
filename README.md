@@ -68,28 +68,28 @@ Follow the link: https://btschneid.github.io/Pathfinding-and-Sorting-Visualizer/
 
 Linear sort is a simple sorting algorithm that works by iterating through the input array and finding the minimum element, then swapping it with the first element. It then iterates through the remaining elements and finds the minimum of those, swapping it with the second element, and so on.
 
-* Time complexity: O(n^2)
+* Time complexity: O(n<sup>2</sup>)
 * Space complexity: O(1)
 
 ### Bubble
 
 Bubble sort is a simple sorting algorithm that works by repeatedly swapping adjacent elements if they are in the wrong order. It continues to do this until no more swaps are needed.
 
-* Time complexity: O(n^2)
+* Time complexity: O(n<sup>2</sup>)
 * Space complexity: O(1)
 
 ### Selection
 
 Selection sort is a simple sorting algorithm that works by finding the minimum element in the input array and swapping it with the first element. It then finds the minimum element of the remaining elements and swaps it with the second element, and so on.
 
-* Time complexity: O(n^2)
+* Time complexity: O(n<sup>2</sup>)
 * Space complexity: O(1)
 
 ### Insertion
 
 Insertion sort is a simple sorting algorithm that works by iterating through the input array and inserting each element into its proper place in a sorted subarray. It does this by comparing each element with the previous elements in the subarray and swapping them if they are in the wrong order.
 
-* Time complexity: O(n^2)
+* Time complexity: O(n<sup>2</sup>)
 * Space complexity: O(1)
 
 ### Merge
@@ -103,7 +103,7 @@ Merge sort is a divide-and-conquer sorting algorithm that works by recursively d
 
 Quick sort is a divide-and-conquer sorting algorithm that works by selecting a pivot element, partitioning the array into two subarrays based on the pivot, and then recursively sorting the two subarrays.
 
-* Time complexity: O(n log n) on average. Worst case: O(n^2)
+* Time complexity: O(n log n) on average. Worst case: O(n<sup>2</sup>)
 * Space complexity: O(log n)
 
 ### Heap
