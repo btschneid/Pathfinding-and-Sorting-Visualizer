@@ -301,10 +301,17 @@ body.path {
 }
 
 .sorting-button {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: auto;
+  gap: 5px;
   align-items: center;
   justify-content: center;
+}
+
+#source-code {
+  width: 75%;
+  margin: 0 auto;
 }
 
 .input-container {
