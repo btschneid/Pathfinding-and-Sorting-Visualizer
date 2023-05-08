@@ -55,6 +55,7 @@ let numOfBars = defaultValue;
 
 function updateRandom() {
   numOfBars = slider.value;
+	console.log(numOfBars);
   randomize();
 }
 

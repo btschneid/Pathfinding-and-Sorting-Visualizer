@@ -366,6 +366,65 @@ async function random(ratio) {
 
 
 
+/////////////////////////////////////////////
+// Info Stuff
+/////////////////////////////////////////////
+const openInfoButtons = document.querySelectorAll('[data-info-target]');
+const closeInfoButtons = document.querySelectorAll('[data-close-button]');
+const page1 = document.querySelector('.page1');
+const page2 = document.querySelector('.page2');
+const overlay = document.getElementById('overlay');
+
+openInfoButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const info = document.querySelector(button.dataset.infoTarget);
+    openInfo(info);
+  });
+});
+
+overlay.addEventListener('click', () => {
+  const infos = document.querySelectorAll('.info.active');
+  infos.forEach(info => {
+    closeInfo(info);
+  });
+});
+
+closeInfoButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const info = button.closest('.info');
+    closeInfo(info);
+  });
+});
+
+function openInfo (info) {
+  if (info == null) return;
+  info.classList.add('active');
+  overlay.classList.add('active');
+}
+
+function closeInfo (info) {
+  if (info == null) return;
+  info.classList.remove('active');
+  overlay.classList.remove('active');
+  setTimeout(() => {
+    resetPages();
+  }, 100);
+}
+
+function togglePages() {
+  page1.style.display = 'none';
+  page2.style.display = 'block';
+}
+
+function resetPages() {
+  page2.style.display = 'none';
+  page1.style.display = 'block';
+}
+
+
+
+
+
 
 
 
@@ -420,12 +479,14 @@ const checkToStart = () => {
 ///////////////////////
 
 const bfs = () => {
+  resetOn = true;
   pathFindingDone = false;
   currentAlg = 0;
   bfsTime(30)
 }
 
 async function bfsTime(delayTime) {
+  await delay(50);
   selectedColor = '';
   if (!checkToStart()) {
     return;
@@ -443,7 +504,7 @@ async function bfsTime(delayTime) {
 
   outerLoop : while (queue.length > 0) {
     if (resetOn) {
-      break;
+      return;
     }
     if (delayTime > 0) {
       await delay(delayTime);
@@ -505,12 +566,14 @@ async function bfsTime(delayTime) {
 ///////////////////////
 
 const dfs = () => {
+  resetOn = true;
   pathFindingDone = false;
   currentAlg = 1;
   dfsTime(30)
 }
 
 async function dfsTime(delayTime) {
+  await delay(50);
   selectedColor = '';
   if (!checkToStart()) {
     return;
@@ -528,7 +591,7 @@ async function dfsTime(delayTime) {
 
   outerLoop : while (array.length > 0) {
     if (resetOn) {
-      break;
+      return;
     }
     if (delayTime > 0) {
       await delay(delayTime);
@@ -615,6 +678,7 @@ const addToQueueDij = (queue, tile, type) => {
 }
 
 const dijkstra = (type) => {
+  resetOn = true;
   pathFindingDone = false;
   if (type === 'euclidean') {
     currentAlg = 2;
@@ -625,13 +689,13 @@ const dijkstra = (type) => {
 }
 
 async function dijTime(delayTime, type) {
+  await delay(50);
   selectedColor = '';
   if (!checkToStart()) {
     return;
   }
 
   editMode = false;
-  resetOn = false;
   updateTileNeighbors();
   const graph = buildGraph();
   const visited = new Set([startTile]);
@@ -639,10 +703,11 @@ async function dijTime(delayTime, type) {
   const prev = {};
   let endNode = null;
   resetVisitedTiles();
+  resetOn = false;
 
   outerLoop : while (prioQueue.length > 0) {
     if (resetOn) {
-      break;
+      return;
     }
     if (delayTime > 0) {
       await delay(delayTime);
@@ -757,6 +822,7 @@ const addToQueue = (queue, tile, type) => {
 
 
 const aStar = (type) => {
+  resetOn = true;
   pathFindingDone = false;
   if (type === 'euclidean') {
     currentAlg = 4;
@@ -767,6 +833,7 @@ const aStar = (type) => {
 }
 
 async function astarTime(delayTime, type) {
+  await delay(50);
   selectedColor = '';
   if (!checkToStart()) {
     return;
@@ -784,7 +851,7 @@ async function astarTime(delayTime, type) {
 
   outerLoop : while (prioQueue.length > 0) {
     if (resetOn) {
-      break;
+      return;
     }
     if (delayTime > 0) {
       await delay(delayTime);
@@ -878,6 +945,7 @@ const addToQueueGreed = (queue, tile, type) => {
 }
 
 const greedyBFS = (type) => {
+  resetOn = true;
   pathFindingDone = false;
   if (type === 'euclidean') {
     currentAlg = 6;
@@ -888,6 +956,7 @@ const greedyBFS = (type) => {
 }
 
 async function greedyTime(delayTime, type) {
+  await delay(50);
   selectedColor = '';
   if (!checkToStart()) {
     return;
@@ -905,7 +974,7 @@ async function greedyTime(delayTime, type) {
 
   outerLoop : while (prioQueue.length > 0) {
     if (resetOn) {
-      break;
+      return;
     }
     if (delayTime > 0) {
       await delay(delayTime);
