@@ -50,7 +50,7 @@ Greedy Best First Search is a heuristic search algorithm that prioritizes explor
 * Time complexity: O(E log V), where V is the number of vertices and E is the number of edges
 * Space complexity: O(V), where V is the number of vertices
 
-# Pathfinding Visualization
+# Sorting Visualization
 
 This project is a web application for visualizing various sorting algorithms such as Linear, Bubble, Selection, Insertion, Merge, Quick, Heap, and Bogo. It allows users to change the number of bars to sort and the sorting speed, and then visualize how the algorithms sort the bars.
 
